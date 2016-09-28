@@ -15,12 +15,12 @@ func UdpCall(server, msg string) (info string, err error) {
 
 	addr, err := net.ResolveUDPAddr("udp", server)
 	if err != nil {
-		log.Println("Can't resolve address: ", err)
+		log.Println("error: ", "Can't resolve address: ", err)
 		return "", err
 	}
 	conn, err := net.DialUDP("udp", nil, addr)
 	if err != nil {
-		log.Println("Can't dial: ", err)
+		log.Println("error: ", "Can't dial: ", err)
 		return "", err
 	}
 
@@ -29,7 +29,7 @@ func UdpCall(server, msg string) (info string, err error) {
 	log.Println("Writing something to server...")
 	_, err = conn.Write([]byte(msg))
 	if err != nil {
-		log.Println("failed:", err)
+		log.Println("error: ", "failed:", err)
 		return "", err
 	}
 
@@ -38,7 +38,7 @@ func UdpCall(server, msg string) (info string, err error) {
 	n, remoteAddr, err := conn.ReadFromUDP(data)
 	log.Println("Connecting...")
 	if err != nil {
-		log.Println("failed to read UDP msg because of ", err)
+		log.Println("error: ", "failed to read UDP msg because of ", err)
 		return "", err
 	}
 
@@ -66,10 +66,15 @@ func getAddrs() (addrs []string, err error) {
 	return
 }
 
-func getMonitorType() (mtype string) {
+func getMonitorType() (mtype string, err error) {
 
 	//PGW or SGW
 	mtype = os.Getenv("MONITOR_TYPE")
+
+	if !strings.EqualFold(mtype, "PGW") && !strings.EqualFold(mtype, "SGW") {
+		err = errors.New("getMonitorType failed, invalid MONITOR_TYPE")
+		return
+	}
 	return
 }
 
@@ -85,7 +90,7 @@ func parseJson(jsonstring string) (instances, connNum, ovsId int) {
 	return
 }
 
-func process(infos []string) (sumInstance int, sumConn int, monitorType string, err error) {
+func process(infos []string) (sumInstance int, sumConn int, err error) {
 
 	sumInstance = 0
 	sumConn = 0
@@ -95,7 +100,7 @@ func process(infos []string) (sumInstance int, sumConn int, monitorType string, 
 		sumInstance = sumInstance + instances
 		sumConn = sumConn + connNum
 	}
-	monitorType = getMonitorType()
-	log.Println("sumInstance=", sumInstance, ", sumConn=", sumConn, ", monitorType=", monitorType)
+	//monitorType, _ = getMonitorType()
+	log.Println("sumInstance=", sumInstance, ", sumConn=", sumConn)
 	return
 }

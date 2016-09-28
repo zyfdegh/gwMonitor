@@ -48,8 +48,16 @@ func (r Resource) callServers(request *restful.Request, response *restful.Respon
 		response.WriteAsJson(resp)
 		return
 	}
-
 	log.Println(addrs, len(addrs))
+
+	monitorType, err := getMonitorType()
+	if err != nil {
+		log.Println(monitorType)
+		resp := RespStruct{Success: false, Err: err.Error()}
+		response.WriteAsJson(resp)
+		return
+	}
+	log.Println("MONITOR_TYPE: ", monitorType)
 
 	infos := make([]string, 0, len(addrs))
 
@@ -65,7 +73,7 @@ func (r Resource) callServers(request *restful.Request, response *restful.Respon
 
 	log.Println(infos)
 
-	instances, connNum, monitorType, _ := process(infos)
+	instances, connNum, _ := process(infos)
 	respData := RespData{Instances: instances, ConnNum: connNum, MonitorType: monitorType}
 	resp := RespStruct{Success: true, Data: respData}
 	response.WriteAsJson(resp)
