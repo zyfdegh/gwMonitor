@@ -2,14 +2,15 @@ package main
 
 import (
 	"log"
-	"monitor/autoscaling"
-	"monitor/services"
 	"net/http"
 
+	"github.com/LinkerNetworks/gwMonitor/autoscaling"
+	"github.com/LinkerNetworks/gwMonitor/services"
 	"github.com/emicklei/go-restful"
 )
 
 func main() {
+	// startRestfulServer()
 	autoscaling.Start()
 }
 
