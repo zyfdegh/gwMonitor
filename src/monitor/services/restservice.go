@@ -41,20 +41,29 @@ func (r Resource) callServers(request *restful.Request, response *restful.Respon
 
 	log.Println("callservers...")
 
-	//get UDP server addresses from ENV file
-	addrs, err := getAddrs()
+	instances, connNum, monitorType, err := GetInfos()
 	if err != nil {
 		resp := RespStruct{Success: false, Err: err.Error()}
 		response.WriteAsJson(resp)
+	}
+
+	respData := RespData{Instances: instances, ConnNum: connNum, MonitorType: monitorType}
+	resp := RespStruct{Success: true, Data: respData}
+	response.WriteAsJson(resp)
+}
+
+// GetInfos calls OVS API and returns processed data
+func GetInfos() (instances, connNum int, monitorType string, err error) {
+	//get UDP server addresses from ENV file
+	addrs, err := getAddrs()
+	if err != nil {
 		return
 	}
 	log.Println(addrs, len(addrs))
 
-	monitorType, err := getMonitorType()
+	monitorType, err = getMonitorType()
 	if err != nil {
 		log.Println(monitorType)
-		resp := RespStruct{Success: false, Err: err.Error()}
-		response.WriteAsJson(resp)
 		return
 	}
 	log.Println("MONITOR_TYPE: ", monitorType)
@@ -73,8 +82,6 @@ func (r Resource) callServers(request *restful.Request, response *restful.Respon
 
 	log.Println(infos)
 
-	instances, connNum, _ := process(infos)
-	respData := RespData{Instances: instances, ConnNum: connNum, MonitorType: monitorType}
-	resp := RespStruct{Success: true, Data: respData}
-	response.WriteAsJson(resp)
+	instances, connNum, _ = process(infos)
+	return
 }

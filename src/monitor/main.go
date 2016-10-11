@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"monitor/autoscaling"
 	"monitor/services"
 	"net/http"
 
@@ -9,7 +10,10 @@ import (
 )
 
 func main() {
+	autoscaling.Start()
+}
 
+func startRestfulServer() {
 	wsContainer := restful.NewContainer()
 	u := services.Resource{}
 	u.Register(wsContainer)
