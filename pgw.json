@@ -4,15 +4,16 @@
 		{
 			"id": "/pgw/pgw1",
 			"cpus": 1,
-			"mem": 512,
+			"mem": 2048,
 			"instances": 1,
+			"constraints": [["physicalnode", "CLUSTER", "pn-1"]],
 			"container": {
 				"type": "DOCKER",
 				"docker": {
 					"network": "NONE",
-					"image": "alexwhen/docker-2048",
-					"privileged": false,
-					"forcePullImage": false
+					"image": "linkerrepository/linker_pgw",
+					"privileged": true,
+					"forcePullImage": true
 				}
 			},
 			"env": {
@@ -35,15 +36,16 @@
 		{
 			"id": "/pgw/pgw2",
 			"cpus": 1,
-			"mem": 512,
+			"mem": 2048,
 			"instances": 1,
+			"constraints": [["physicalnode", "CLUSTER", "pn-2"]],
 			"container": {
 				"type": "DOCKER",
 				"docker": {
 					"network": "NONE",
-					"image": "alexwhen/docker-2048",
-					"privileged": false,
-					"forcePullImage": false
+					"image": "linkerrepository/linker_pgw",
+					"privileged": true,
+					"forcePullImage": true
 				}
 			},
 			"env": {
@@ -66,15 +68,16 @@
 		{
 			"id": "/pgw/pgw3",
 			"cpus": 1,
-			"mem": 512,
+			"mem": 2048,
 			"instances": 1,
+			"constraints": [["physicalnode", "CLUSTER", "pn-1"]],
 			"container": {
 				"type": "DOCKER",
 				"docker": {
 					"network": "NONE",
-					"image": "alexwhen/docker-2048",
-					"privileged": false,
-					"forcePullImage": false
+					"image": "linkerrepository/linker_pgw",
+					"privileged": true,
+					"forcePullImage": true
 				}
 			},
 			"env": {
@@ -97,15 +100,16 @@
 		{
 			"id": "/pgw/pgw4",
 			"cpus": 1,
-			"mem": 512,
+			"mem": 2048,
 			"instances": 1,
+			"constraints": [["physicalnode", "CLUSTER", "pn-2"]],
 			"container": {
 				"type": "DOCKER",
 				"docker": {
 					"network": "NONE",
-					"image": "alexwhen/docker-2048",
-					"privileged": false,
-					"forcePullImage": false
+					"image": "linkerrepository/linker_pgw",
+					"privileged": true,
+					"forcePullImage": true
 				}
 			},
 			"env": {
