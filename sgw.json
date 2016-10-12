@@ -1,8 +1,8 @@
 {
-	"id": "pgw",
+	"id": "sgw",
 	"apps": [
 		{
-			"id": "/pgw/pgw1",
+			"id": "/sgw/sgw1",
 			"cpus": 1,
 			"mem": 512,
 			"instances": 1,
@@ -16,11 +16,11 @@
 				}
 			},
 			"env": {
-				"LINKER_PGW": "true",
+				"LINKER_SGW": "true",
 				"LINKER_ETH1_IP": "192.168.3.9/24",
 				"LINKER_ETH2_IP": "192.168.3.13/24",
 				"LINKER_GW_IP": "192.168.3.1",
-				"LINKER_PGW_VIP": "192.168.3.8",
+				"LINKER_SGW_VIP": "192.168.3.8",
 				"INTERNET_IN_INTERFACE": "eth1",
 				"INTERNET_OUT_INTERFACE": "eth2",
 				"SGi_INTERFACE": "tap2",
@@ -33,7 +33,7 @@
 			}
 		},
 		{
-			"id": "/pgw/pgw2",
+			"id": "/sgw/sgw2",
 			"cpus": 1,
 			"mem": 512,
 			"instances": 1,
@@ -47,11 +47,11 @@
 				}
 			},
 			"env": {
-				"LINKER_PGW": "true",
+				"LINKER_SGW": "true",
 				"LINKER_ETH1_IP": "192.168.3.11/24",
 				"LINKER_ETH2_IP": "192.168.3.15/24",
 				"LINKER_GW_IP": "192.168.3.1",
-				"LINKER_PGW_VIP": "192.168.3.8",
+				"LINKER_SGW_VIP": "192.168.3.8",
 				"INTERNET_IN_INTERFACE": "eth1",
 				"INTERNET_OUT_INTERFACE": "eth2",
 				"SGi_INTERFACE": "tap2",
@@ -64,7 +64,7 @@
 			}
 		},
 		{
-			"id": "/pgw/pgw3",
+			"id": "/sgw/sgw3",
 			"cpus": 1,
 			"mem": 512,
 			"instances": 1,
@@ -78,11 +78,11 @@
 				}
 			},
 			"env": {
-				"LINKER_PGW": "true",
+				"LINKER_SGW": "true",
 				"LINKER_ETH1_IP": "192.168.3.10/24",
 				"LINKER_ETH2_IP": "192.168.3.14/24",
 				"LINKER_GW_IP": "192.168.3.1",
-				"LINKER_PGW_VIP": "192.168.3.8",
+				"LINKER_SGW_VIP": "192.168.3.8",
 				"INTERNET_IN_INTERFACE": "eth1",
 				"INTERNET_OUT_INTERFACE": "eth2",
 				"SGi_INTERFACE": "tap2",
@@ -95,7 +95,7 @@
 			}
 		},
 		{
-			"id": "/pgw/pgw4",
+			"id": "/sgw/sgw4",
 			"cpus": 1,
 			"mem": 512,
 			"instances": 1,
@@ -109,11 +109,11 @@
 				}
 			},
 			"env": {
-				"LINKER_PGW": "true",
+				"LINKER_SGW": "true",
 				"LINKER_ETH1_IP": "192.168.3.12/24",
 				"LINKER_ETH2_IP": "192.168.3.16/24",
 				"LINKER_GW_IP": "192.168.3.1",
-				"LINKER_PGW_VIP": "192.168.3.8",
+				"LINKER_SGW_VIP": "192.168.3.8",
 				"INTERNET_IN_INTERFACE": "eth1",
 				"INTERNET_OUT_INTERFACE": "eth2",
 				"SGi_INTERFACE": "tap2",

@@ -5,18 +5,39 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"sync"
 
+	"github.com/LinkerNetworks/gwMonitor/conf"
 	marathon "github.com/gambol99/go-marathon"
 )
 
-const (
-	// JSONPath is Marathon JSON template file path
-	JSONPath = "pgw.json"
+var (
+	onceTemplate sync.Once
+
+	jsonPath   string
+	pgwGroupID string
+	sgwGroupID string
 )
 
-// return apps from 0 to n in JSON template
+func init() {
+	onceTemplate.Do(func() {
+		monitorType := env(keyMonitorType).Value
+		switch monitorType {
+		case typePGW:
+			jsonPath = conf.OptionsReady.PgwJSON
+			pgwGroupID = groupID()
+		case typeSGW:
+			jsonPath = conf.OptionsReady.SgwJSON
+			sgwGroupID = groupID()
+		default:
+			log.Printf("unknow monitor type: %s\n", monitorType)
+		}
+	})
+}
+
+// return apps from 0 to <n> in JSON template
 func getFirstNApps(n int) (apps []*marathon.Application) {
-	content, err := readTextFile(JSONPath)
+	content, err := readTextFile(jsonPath)
 	if err != nil {
 		return
 	}
@@ -25,6 +46,30 @@ func getFirstNApps(n int) (apps []*marathon.Application) {
 		return
 	}
 	return group.Apps[:n]
+}
+
+func lenTemplateApps() int {
+	content, err := readTextFile(jsonPath)
+	if err != nil {
+		return -1
+	}
+	group, err := parseJSON(content)
+	if err != nil {
+		return -2
+	}
+	return len(group.Apps)
+}
+
+func groupID() string {
+	content, err := readTextFile(jsonPath)
+	if err != nil {
+		return ""
+	}
+	group, err := parseJSON(content)
+	if err != nil {
+		return ""
+	}
+	return group.ID
 }
 
 func parseJSON(content []byte) (group *marathon.Group, err error) {
@@ -42,7 +87,7 @@ func readTextFile(path string) (content []byte, err error) {
 		log.Printf("stat file error: %v\n", err)
 		return
 	}
-	content, err = ioutil.ReadFile(JSONPath)
+	content, err = ioutil.ReadFile(jsonPath)
 	if err != nil {
 		log.Printf("read file error: %v\n", err)
 		return

@@ -11,7 +11,7 @@ import (
 
 func main() {
 	// startRestfulServer()
-	autoscaling.Start()
+	autoscaling.StartMonitor()
 }
 
 func startRestfulServer() {
