@@ -1,18 +1,12 @@
 #!/bin/bash
 
-echo "change direction"
-cd ../../
-echo $(pwd)
-
-echo "export path"
-export GOPATH=$(pwd)
-echo "GOPATH:"$GOPATH
-
 echo "get packages..."
 go get github.com/emicklei/go-restful
 go get github.com/jmoiron/jsonq
+go get github.com/gambol99/go-marathon
+go get github.com/hashicorp/hcl
 echo "get packages finished"
 
 echo "build..."
-CGO_ENABLED=0 go build -a -installsuffix cgo monitor
+go build -o monitor
 echo "build finished"

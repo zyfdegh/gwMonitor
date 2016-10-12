@@ -1,6 +1,2 @@
-exclude everything except directory src/monitor
+gwMonitor
 monitor
-/bin/*
-/pkg/*
-/src/*
-!/src/monitor
