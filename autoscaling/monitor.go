@@ -38,6 +38,7 @@ func StartMonitor() {
 
 	rewind()
 	for {
+		time.Sleep(pollingTime)
 		alert, err := analyse()
 		if err != nil {
 			log.Printf("E | analyse error: %v\n", err)
@@ -66,7 +67,6 @@ func StartMonitor() {
 			log.Println("I | scaling up SGW instance...")
 			scaleSgwUp()
 		}
-		time.Sleep(pollingTime)
 	}
 }
 

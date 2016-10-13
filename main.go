@@ -5,12 +5,16 @@ import (
 	"net/http"
 
 	"github.com/LinkerNetworks/gwMonitor/autoscaling"
+	"github.com/LinkerNetworks/gwMonitor/conf"
 	"github.com/LinkerNetworks/gwMonitor/services"
 	"github.com/emicklei/go-restful"
 )
 
 func main() {
-	// startRestfulServer()
+	if conf.OptionsReady.RestEnabled {
+		log.Println("restful server enabled, starting...")
+		startRestfulServer()
+	}
 	autoscaling.StartMonitor()
 }
 
